@@ -40,7 +40,7 @@ function createMemo(content, success, failed) {
       .post('/memo/create', JSON.stringify({ content }))
       .then((res) => res.data)
       .then((data) => {
-        if (data.status === 'success') {
+        if (data.status === 'ok') {
           if (success) {
             success();
           }
@@ -75,7 +75,7 @@ function removeMemoById(id, success, failed) {
       .delete('/memo/delete', { data })
       .then((res) => res.data)
       .then((data) => {
-        if (data.status === 'success') {
+        if (data.status === 'ok') {
           dispatch(removeFromList(id));
           if (success) {
             success();
@@ -99,7 +99,7 @@ function fetchMemoList(success, failed) {
       .get('/memo/list')
       .then((res) => res.data)
       .then((data) => {
-        if (data.status === 'success') {
+        if (data.status === 'ok') {
           dispatch(setMemoList(data.memoes));
           if (success) {
             success();

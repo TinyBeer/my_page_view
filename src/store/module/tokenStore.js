@@ -81,7 +81,7 @@ const refreshToken = async (success, failed) => {
     .then((res) => {
       if (res.status === 200) {
         setLoginStatus(true);
-        localStorage.setItem('access_token', res.data);
+        localStorage.setItem('access_token', res.data.access_token);
         if (success) {
           success();
         }

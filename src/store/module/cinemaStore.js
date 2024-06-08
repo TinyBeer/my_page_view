@@ -29,7 +29,7 @@ function fetchVideoList(success, failed) {
       .get('/video/list')
       .then((res) => res.data)
       .then((data) => {
-        if (data.status === 'success') {
+        if (data.status === 'ok') {
           if (success) {
             dispatch(setVideoList(data.videoes));
             success();
