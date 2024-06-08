@@ -1,0 +1,81 @@
+.login_modal {
+  /* display: none; */
+  /* 默认隐藏 */
+  position: fixed;
+  /* 固定位置 */
+  /* z-index: 9999; */
+  /* 确保在其他元素之上 */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* 宽度为100% */
+  height: 100%;
+  /* 高度为100% */
+  overflow: auto;
+  /* 如果有滚动条则显示 */
+  background-color: #2f363e;
+  /* 黑色背景 */
+}
+
+.login_modal .modal_content {
+  background-color: #2f363e;
+  margin: 15% auto;
+  padding: 20px;
+  border: 2px solid #fea600;
+  width: 30%;
+  height: 280px;
+  border-radius: 20px;
+}
+
+.login_modal .modal_content form {
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+}
+
+.login_modal .modal_content form > div {
+  width: 100%;
+  overflow: hidden;
+}
+
+.login_modal .modal_content input {
+  bottom: 0;
+  max-width: 100%;
+  height: 35px;
+  font-size: 20px;
+  background: #2f363e;
+  border: none;
+  border-bottom: 2px solid #fee800;
+  text-align: center;
+  color: #fee800;
+  outline: none;
+}
+
+.login_modal .modal_content .btn_container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.login_modal .modal_content .button {
+  display: inline;
+  align-items: center;
+  text-align: center;
+}
+
+.login_modal .modal_content .button ion-icon {
+  font-size: 24px;
+  color: var(--clr);
+  border-radius: 100%;
+  border: 2px solid var(--clr);
+}
+
+.login_modal .modal_content .button ion-icon:hover {
+  color: #2f363e;
+  background-color: var(--clr);
+  box-shadow: 0 0 10px var(--clr), 0 0 20px var(--clr), 0 0 50px var(--clr);
+  cursor: pointer;
+}
