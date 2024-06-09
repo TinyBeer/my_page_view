@@ -13,12 +13,13 @@ const cinemaStore = createSlice({
   },
 });
 const { setVideoList } = cinemaStore.actions;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 function fetchVideoList(success, failed) {
   return async (dispatch) => {
     const access_token = localStorage.getItem('access_token');
     const instance = axios.create({
-      baseURL: 'http://127.0.0.1:9999',
+      baseURL: apiUrl,
       timeout: 1000,
       headers: {
         'Content-Type': 'application/json',

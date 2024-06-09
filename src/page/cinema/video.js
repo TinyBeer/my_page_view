@@ -5,6 +5,8 @@ import { refreshToken } from '../../store/module/tokenStore';
 import { useNavigate } from 'react-router';
 import { fetchVideoList } from '../../store/module/cinemaStore';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export default function App({ displayAlert }) {
   const [loginStatus, setLoginStatus] = useState(false);
   const [loading, setloading] = useState(true);
@@ -100,15 +102,12 @@ export default function App({ displayAlert }) {
                           // muted
                           width='80%'
                           controls
-                          src={
-                            'http://127.0.0.1:9999/static/video/movie/' +
-                            item.name
-                          }
+                          src={apiUrl + '/static/video/movie/' + item.name}
                         />
                       ),
                       toolbarRender: () => null,
                     }}
-                    src={`http://127.0.0.1:9999/static/img/` + item.image}
+                    src={apiUrl + `/static/img/` + item.image}
                   />
                 )}
                 <span

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+const apiUrl = process.env.REACT_APP_API_URL;
 const tokenStore = createSlice({
   name: 'token',
   initialState: {
@@ -26,7 +26,7 @@ const tokenStore = createSlice({
 const { setLoginStatus, setAccessToken, setRefreshToken } = tokenStore.actions;
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:9999',
+  baseURL: apiUrl,
   timeout: 1000,
   headers: { 'Content-Type': 'application/json' },
 });
@@ -71,7 +71,7 @@ const refreshToken = async (success, failed) => {
     return;
   }
   const instance = axios.create({
-    baseURL: 'http://127.0.0.1:9999',
+    baseURL: apiUrl,
     timeout: 1000,
     headers: { Authorization: token },
   });

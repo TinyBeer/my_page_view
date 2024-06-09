@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import {
   // EditOutlined,
   // BgColorsOutlined,
+  CheckOutlined,
   DeleteOutlined,
+  SmileOutlined,
 } from '@ant-design/icons';
 import { Input, Layout, Card, Row, Col, notification } from 'antd';
 import { refreshToken } from '../../store/module/tokenStore';
@@ -12,11 +14,13 @@ import {
   createMemo,
   fetchMemoList,
   removeMemoById,
+  completeMemoWithId,
 } from '../../store/module/memoStore';
 import './css/memo.css';
 const { Meta } = Card;
 const { Header, Content } = Layout;
 
+const apiUrl = process.env.REACT_APP_API_URL;
 export default function App() {
   const [refresh, setRefresh] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -126,13 +130,20 @@ export default function App() {
                         }}
                         alt='example'
                         src={
-                          'http://127.0.0.1:9999/static/img/memo/' +
-                          (item.id % 8) +
-                          '.png'
+                          apiUrl + '/static/img/memo/' + (item.id % 8) + '.png'
                         }
                       />
                     }
                     actions={[
+                      item.completed ? (
+                        <SmileOutlined key='completed' />
+                      ) : (
+                        <CheckOutlined
+                          key='complete'
+                          onClick={() => dispatch(completeMemoWithId(item.id))}
+                        />
+                      ),
+
                       <DeleteOutlined
                         key='delete'
                         onClick={() => dispatch(removeMemoById(item.id))}
