@@ -5,8 +5,6 @@ import { refreshToken } from '../../store/module/tokenStore';
 import { useNavigate } from 'react-router';
 import { fetchVideoList } from '../../store/module/cinemaStore';
 
-const apiUrl = process.env.REACT_APP_API_URL;
-
 export default function App({ displayAlert }) {
   const [loginStatus, setLoginStatus] = useState(false);
   const [loading, setloading] = useState(true);
@@ -44,7 +42,8 @@ export default function App({ displayAlert }) {
     >
       {videoList &&
         videoList.length > 0 &&
-        videoList.slice(0, 4).map((item, index) => {
+        // videoList.slice(0, 4).map((item, index) => {
+        videoList.map((item, index) => {
           const key = `col-${index}`;
           return (
             <Col
