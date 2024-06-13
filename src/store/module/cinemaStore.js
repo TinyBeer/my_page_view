@@ -27,12 +27,12 @@ function fetchVideoList(success, failed) {
       },
     });
     instance
-      .get('/video/list')
+      .get('/movie/list')
       .then((res) => res.data)
       .then((data) => {
         if (data.status === 'ok') {
           if (success) {
-            dispatch(setVideoList(data.videoes));
+            dispatch(setVideoList(data.movies));
             success();
           } else {
             throw new Error(data.message);
