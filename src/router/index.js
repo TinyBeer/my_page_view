@@ -3,7 +3,7 @@ import ErrorPage from '../page/error';
 import Login from '../page/login';
 import Game from '../page/game';
 import Nav from '../page/nav';
-import Memo from '../page/memo';
+import Todo from '../page/todo';
 import Cinema from '../page/cinema';
 import Video from '../page/cinema/video';
 import Upload from '../page/cinema/upload';
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/memo',
-    element: <Memo />,
+    path: '/todo',
+    element: <Todo />,
     errorElement: <ErrorPage />,
   },
   {

@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tockenReducer from './module/tokenStore';
-import memoReducer from './module/memoStore';
+import todoReducer from './module/todoStore';
 import cinemaReducer from './module/cinemaStore';
 
 const store = configureStore({
   reducer: {
     token: tockenReducer,
-    memo: memoReducer,
+    todo: todoReducer,
     cinema: cinemaReducer,
   },
 });

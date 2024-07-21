@@ -3,33 +3,33 @@ import axios from 'axios';
 import _ from 'lodash';
 
 const apiUrl = process.env.REACT_APP_API_URL;
-const memoStore = createSlice({
-  name: 'memo',
+const todoStore = createSlice({
+  name: 'todo',
   initialState: {
-    memoList: [],
+    todoList: [],
   },
   reducers: {
-    setMemoList(state, action) {
-      state.memoList = action.payload;
+    setTodoList(state, action) {
+      state.todoList = action.payload;
     },
-    completeMemo(state, action) {
-      const items = state.memoList;
+    completeTodo(state, action) {
+      const items = state.todoList;
       let item = _.find(items, { id: action.payload });
       if (item) {
         item.completed = true;
-        state.memoList = items;
+        state.todoList = items;
       }
     },
     removeFromList(state, action) {
-      state.memoList = _.filter(
-        state.memoList,
+      state.todoList = _.filter(
+        state.todoList,
         (item) => item.id !== action.payload
       );
     },
   },
 });
 
-const { setMemoList, removeFromList, completeMemo } = memoStore.actions;
+const { setTodoList, removeFromList, completeTodo } = todoStore.actions;
 
 const createInstance = () => {
   const access_token = localStorage.getItem('access_token');
@@ -43,10 +43,10 @@ const createInstance = () => {
   });
 };
 
-function createMemo(content, success, failed) {
+function createTodo(content, success, failed) {
   return (dispatch) => {
     createInstance()
-      .post('/memo/create', JSON.stringify({ content }))
+      .post('/todo', JSON.stringify({ content }))
       .then((res) => res.data)
       .then((data) => {
         if (data.status === 'ok') {
@@ -58,7 +58,7 @@ function createMemo(content, success, failed) {
         }
       })
       .catch((error) => {
-        console.error('add memo error:', error);
+        console.error('add todo error:', error);
         if (failed) {
           failed();
         }
@@ -66,14 +66,14 @@ function createMemo(content, success, failed) {
   };
 }
 
-function completeMemoWithId(id, success, failed) {
+function completeTodoWithId(id, success, failed) {
   return (dispatch) => {
     createInstance()
-      .put('/memo/complete', JSON.stringify({ id }))
+      .put('/todo', JSON.stringify({ id }))
       .then((res) => res.data)
       .then((data) => {
         if (data.status === 'ok') {
-          dispatch(completeMemo(id));
+          dispatch(completeTodo(id));
           if (success) {
             success();
           }
@@ -82,7 +82,7 @@ function completeMemoWithId(id, success, failed) {
         }
       })
       .catch((error) => {
-        console.error('complete memo error:', error);
+        console.error('complete todo error:', error);
         if (failed) {
           failed();
         }
@@ -90,7 +90,7 @@ function completeMemoWithId(id, success, failed) {
   };
 }
 
-function removeMemoById(id, success, failed) {
+function removeTodoById(id, success, failed) {
   return (dispatch) => {
     // axios默认不支持delete带body
     const access_token = localStorage.getItem('access_token');
@@ -105,7 +105,7 @@ function removeMemoById(id, success, failed) {
           Authorization: access_token,
         },
       })
-      .delete('/memo/delete', { data })
+      .delete('/todo', { data })
       .then((res) => res.data)
       .then((data) => {
         if (data.status === 'ok') {
@@ -118,7 +118,7 @@ function removeMemoById(id, success, failed) {
         }
       })
       .catch((error) => {
-        console.error('delete memo error:', error);
+        console.error('delete todo error:', error);
         if (failed) {
           failed();
         }
@@ -126,14 +126,14 @@ function removeMemoById(id, success, failed) {
   };
 }
 
-function fetchMemoList(success, failed) {
+function fetchTodoList(success, failed) {
   return (dispatch) => {
     createInstance()
-      .get('/memo/list')
+      .get('/todo')
       .then((res) => res.data)
       .then((data) => {
         if (data.status === 'ok') {
-          dispatch(setMemoList(data.memoes));
+          dispatch(setTodoList(data.data));
           if (success) {
             success();
           }
@@ -142,7 +142,7 @@ function fetchMemoList(success, failed) {
         }
       })
       .catch((error) => {
-        console.error('list memo error:', error);
+        console.error('list todo error:', error);
         if (failed) {
           failed();
         }
@@ -150,7 +150,7 @@ function fetchMemoList(success, failed) {
   };
 }
 
-const reducer = memoStore.reducer;
+const reducer = todoStore.reducer;
 
-export { fetchMemoList, removeMemoById, createMemo, completeMemoWithId };
+export { fetchTodoList, removeTodoById, createTodo, completeTodoWithId };
 export default reducer;

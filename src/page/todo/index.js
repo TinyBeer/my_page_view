@@ -11,12 +11,12 @@ import { Input, Layout, Card, Row, Col, notification } from 'antd';
 import { refreshToken } from '../../store/module/tokenStore';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  createMemo,
-  fetchMemoList,
-  removeMemoById,
-  completeMemoWithId,
-} from '../../store/module/memoStore';
-import './css/memo.css';
+  createTodo,
+  fetchTodoList,
+  removeTodoById,
+  completeTodoWithId,
+} from '../../store/module/todoStore';
+import './css/todo.css';
 const { Meta } = Card;
 const { Header, Content } = Layout;
 
@@ -36,20 +36,21 @@ export default function App() {
           () => navigate('/login')
         );
       }
-      dispatch(fetchMemoList());
+      dispatch(fetchTodoList());
       return () => {};
     };
 
     run();
   }, [dispatch, refresh]);
 
-  const memoList = useSelector((state) => state.memo.memoList);
+  const todoList = useSelector((state) => state.todo.todoList);
+  console.log(todoList);
   const onChange = (e) => {
     setInputValue(e.target.value);
   };
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      if (memoList.length >= 4) {
+      if (todoList.length >= 4) {
         api.info({
           message: `已近这么多了，快要装不下了`,
           description: '',
@@ -60,7 +61,7 @@ export default function App() {
       }
 
       dispatch(
-        createMemo(e.target.value, () => {
+        createTodo(e.target.value, () => {
           setInputValue('');
           setRefresh((pre) => !pre);
         })
@@ -90,8 +91,8 @@ export default function App() {
       </Header>
       <Content style={{ padding: '0 48px', margin: '24px 16px' }}>
         <Row gutter={24}>
-          {Array.isArray(memoList) &&
-            memoList.slice(0, 4).map((item, index) => {
+          {Array.isArray(todoList) &&
+            todoList.slice(0, 4).map((item, index) => {
               const key = `${item.id}`;
               return (
                 <Col
@@ -130,7 +131,7 @@ export default function App() {
                         }}
                         alt='example'
                         src={
-                          apiUrl + '/static/img/memo/' + (item.id % 8) + '.png'
+                          apiUrl + '/static/img/todo/' + (item.id % 8) + '.png'
                         }
                       />
                     }
@@ -140,13 +141,13 @@ export default function App() {
                       ) : (
                         <CheckOutlined
                           key='complete'
-                          onClick={() => dispatch(completeMemoWithId(item.id))}
+                          onClick={() => dispatch(completeTodoWithId(item.id))}
                         />
                       ),
 
                       <DeleteOutlined
                         key='delete'
-                        onClick={() => dispatch(removeMemoById(item.id))}
+                        onClick={() => dispatch(removeTodoById(item.id))}
                       />,
                       // <EditOutlined key='edit' />,
                       // <BgColorsOutlined

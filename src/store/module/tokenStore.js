@@ -36,7 +36,7 @@ const login = (username, password, success, failed) => {
     // 发起POST请求
     instance
       .post(
-        '/user/login',
+        '/token',
         JSON.stringify({
           // 将登录信息转换为JSON字符串
           username,
@@ -77,7 +77,7 @@ const refreshToken = async (success, failed) => {
   });
 
   await instance
-    .post('/user/refresh')
+    .post('/token/access_token')
     .then((res) => {
       if (res.status === 200) {
         setLoginStatus(true);

@@ -44,7 +44,7 @@ export default function Nav() {
     },
     {
       style: { '--clr': '#fee800' },
-      link: '/memo',
+      link: '/todo',
       icon: <ion-icon name='document-outline'></ion-icon>,
     },
     {
